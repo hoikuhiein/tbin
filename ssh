@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ "The agent has no identities." = "`ssh-add -l`" ]
+then
+    echo 'identities add' 1>&2
+    ls ~/.ssh/id_rsa.git*|grep -v '\.pub' |xargs ssh-add
+    ssh-add ~/.ssh/id_rsa.pass
+else
+    echo 'identities exists' 1>&2
+fi
+
+/usr/bin/ssh $@ 
